@@ -7,7 +7,7 @@ describe('PlantUML', function() {
         return tester.builder()
             .withContent('This is a diagram:\n\n{% plantuml %}\nBob->Alice : hello\n{% endplantuml %}')
             .withBookJson({
-                plugins: ['local-plantuml']
+                plugins: ['local-plantuml-img']
             })
             .withLocalPlugin(path.join(__dirname, '..'))
             .create()
@@ -18,7 +18,7 @@ describe('PlantUML', function() {
     it('should correctly replace nested page by img html tag in book root', function() {
         return tester.builder()
             .withBookJson({
-                plugins: ['local-plantuml']
+                plugins: ['local-plantuml-img']
             })
             .withLocalPlugin(path.join(__dirname, '..'))
             .withContent("Linking to [nested page](nesting/nested.md)")
@@ -42,7 +42,7 @@ describe('PlantUML', function() {
             .withFile('test.puml','Bob->Alice : hello')
             .withContent('This is a diagram:\n\n![alt text](test.puml)')
             .withBookJson({
-                plugins: ['local-plantuml']
+                plugins: ['local-plantuml-img']
             })
             .withLocalPlugin(path.join(__dirname, '..'))
             .create()
