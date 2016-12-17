@@ -1,6 +1,6 @@
 # Plant UML GitBook Plugin
 
-[![Build Status](https://travis-ci.org/vliejo/gitbook-plugin-local-plantuml.svg?branch=master)](https://travis-ci.org/vliejo/gitbook-plugin-local-plantuml)
+[![Build Status](https://travis-ci.org/vboulaye/gitbook-plugin-local-plantuml-img.svg?branch=master)](https://travis-ci.org/vboulaye/gitbook-plugin-local-plantuml-img)
 
 This plugin builds on the [puml](https://plugins.gitbook.com/plugin/puml) plugin, however this plugin generates the
 puml images locally rather than using the service at http://www.plantuml.com/plantuml/.

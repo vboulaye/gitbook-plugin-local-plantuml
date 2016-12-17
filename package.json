@@ -1,10 +1,10 @@
 {
-  "name": "gitbook-plugin-local-plantuml",
-  "version": "1.0.2",
+  "name": "gitbook-plugin-local-plantuml-img",
+  "version": "1.0.0",
   "description": "GitBook plugin for PlantUML that generates and stores files locally",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vliejo/gitbook-plugin-local-plantuml.git"
+    "url": "https://github.com/vboulaye/gitbook-plugin-local-plantuml-img.git"
   },
   "engines": {
     "gitbook": ">=3.1.0"
@@ -17,7 +17,7 @@
     "gitbook",
     "plantuml"
   ],
-  "author": "vliejo",
+  "author": "vboulaye",
   "license": "Apache-2.0",
   "dependencies": {
     "crypto": "0.0.3",
