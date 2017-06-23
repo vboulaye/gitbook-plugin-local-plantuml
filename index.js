@@ -47,8 +47,9 @@ function processPumlImg(gitbook, page) {
             gitbook.log.debug("i ", i);
             gitbook.log.debug("this ", $(this));
 
+
             var content = fs.readFileSync(resolvedPath, 'utf8');
-            var imgSrc = buildImageFromPlantUml(gitbook,content);
+            var imgSrc = buildImageFromPlantUml(gitbook, content, resolvedPath);
 
             $(this).attr('src', imgSrc);
 
@@ -57,7 +58,7 @@ function processPumlImg(gitbook, page) {
 }
 
 
-function buildImageFromPlantUml(gitbook, umlText) {
+function buildImageFromPlantUml(gitbook, umlText, optionalSourcePath) {
     var defaultFormat = gitbook.generator == 'ebook' ? '.png' : '.svg';
     var outputFormat = gitbook.generator == 'ebook' ? '-tpng' : '-tsvg';
 
@@ -74,13 +75,17 @@ function buildImageFromPlantUml(gitbook, umlText) {
     if (fs.existsSync(imagePath)) {
         gitbook.log.info("skipping plantUML image for ", imageName);
     }
-    else {
+    else
+    {
         gitbook.log.info("rendering plantUML image to ", imageName);
 
-        var cwd = cwd || process.cwd();
+        var cwd = process.cwd();
+        if (optionalSourcePath) {
+          cwd = path.dirname(optionalSourcePath);
+        }
 
         childProcess.spawnSync("java", [
-                '-Dplantuml.include.path=' + cwd,
+           //     '-Dplantuml.include.path=' + cwd,
                 '-Djava.awt.headless=true',
                 '-jar', PLANTUML_JAR, outputFormat,
                 '-pipe'
@@ -88,7 +93,8 @@ function buildImageFromPlantUml(gitbook, umlText) {
             {
                 // TODO: Extract stdout to a var and persist with gitbook.output.writeFile
                 stdio: ['pipe', fs.openSync(imagePath, 'w'), 'pipe'],
-                input: umlText
+                input: umlText,
+                cwd: cwd
             });
     }
 
