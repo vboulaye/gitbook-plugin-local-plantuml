@@ -98,10 +98,11 @@ function buildImageFromPlantUml(gitbook, umlText, optionalSourcePath) {
             });
     }
 
-    gitbook.log.debug("copying plantUML from tempDir for ", imageName);
-    gitbook.output.copyFile(imagePath, imageName);
+    var targetPath = path.join("images/puml/", imageName);
+    gitbook.log.debug("copying plantUML from tempDir for ", imageName, " to ", targetPath);
+    gitbook.output.copyFile(imagePath, targetPath);
 
-    return path.join("/", imageName);
+    return path.join("/", targetPath);
 }
 
 module.exports = {
