@@ -7,6 +7,7 @@ var childProcess = require('child_process');
 var Entities = require('html-entities').XmlEntities;
 var marked = require('marked');
 var cheerio = require('cheerio');
+var mkdirs = require('node-mkdirs');
 
 var PLANTUML_JAR = path.join(__dirname, 'vendor/plantuml.jar');
 
@@ -69,15 +70,17 @@ function buildImageFromPlantUml(gitbook, umlText, optionalSourcePath) {
     }
 
     var imageName = hashedImageName(umlText) + defaultFormat;
-    gitbook.log.debug("using tempDir ", os.tmpdir());
-    var imagePath = path.join(os.tmpdir(), imageName);
+    var tmpdir = process.env.PLANTUML_TEMPDIR || os.tmpdir();
+    gitbook.log.debug("using tempDir ", tmpdir);
+    mkdirs(tmpdir);
+    var imagePath = path.join(tmpdir, imageName);
 
     if (fs.existsSync(imagePath)) {
-        gitbook.log.info("skipping plantUML image for ", imageName);
+        gitbook.log.info.ln("skipping plantUML image for ", imageName);
     }
     else
     {
-        gitbook.log.info("rendering plantUML image to ", imageName);
+        gitbook.log.info.ln("rendering plantUML image to ", imageName);
 
         var cwd = process.cwd();
         if (optionalSourcePath) {
@@ -100,7 +103,7 @@ function buildImageFromPlantUml(gitbook, umlText, optionalSourcePath) {
     }
 
     var targetPath = path.join("images/puml/", imageName);
-    gitbook.log.debug("copying plantUML from tempDir for ", imageName, " to ", targetPath);
+    gitbook.log.debug.ln("copying plantUML from tempDir for ", imageName, " to ", targetPath);
     gitbook.output.copyFile(imagePath, targetPath);
 
     return path.join("/", targetPath);

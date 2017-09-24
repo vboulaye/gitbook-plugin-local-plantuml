@@ -1,6 +1,6 @@
 {
   "name": "gitbook-plugin-local-plantuml-img",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "GitBook plugin for PlantUML that generates and stores files locally",
   "repository": {
     "type": "git",
@@ -20,10 +20,11 @@
   "author": "vboulaye",
   "license": "Apache-2.0",
   "dependencies": {
+    "cheerio": "^0.22.0",
     "crypto": "0.0.3",
     "html-entities": "^1.2.0",
     "marked": "^0.3.6",
-    "cheerio": "^0.22.0",
+    "node-mkdirs": "0.0.1",
     "q": "^1.4.1"
   },
   "devDependencies": {
